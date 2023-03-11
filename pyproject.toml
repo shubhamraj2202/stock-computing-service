@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "stock_computing_service"
+version = "0.1.0"
+description = "stock_computing_service"
+authors = ["Shubham Raj <shubhamraj2202@gmail.com>"]
+license = "LICENSE"
+readme = "README.md"
+packages = [{include = "stock_computing_service"}]
+keywords = ["stock", "fastapi", "ETL"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "*"
+aiohttp = "^3.8.4"
+datamodel-code-generator = "^0.17.1"
+python-dateutil = "^2.8.2"
+sqlalchemy = "^2.0.5.post1"
+fastapi = "^0.92.0"
+uvicorn = "^0.20.0"
+psycopg2-binary = "^2.9.5"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+isort = "*"
+pre-commit = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^6.0.0"
+pytest-cov = "*"
+codecov = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
