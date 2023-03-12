@@ -5,7 +5,7 @@
 # Tech Stack
 - Python for backend
 - FastAPI for runnning api services
-- Sql lite as Database
+- Postgres Database
 - Docker to set up image for deployment and local development
 
 # Setup project for development:
@@ -25,8 +25,10 @@
 
 # Upload to docker hub
 `docker tag stock-computing-service-app shubhamraj2202/stock-computing-service-app:latest`
-
 `docker push shubhamraj2202/stock-computing-service-app:latest`
+
+# Delete from docker
+`docker rmi shubhamraj2202/stock-computing-service-app:latest-v1`
 
 # Maintaining API key
 For local development, the API key can be accessed via environment variable `FINANCIAL_KEY`
@@ -35,14 +37,18 @@ For local development, the API key can be accessed via environment variable `FIN
 For production environment, the API key should be stored in a secret management service like Vault, GCP Secret Manager /AWS
 
 
-# Deployment:
+# Deployment: (Time Setup) #Todo: Script to take initial setup of env
+
 Install Google Cloud CLI https://cloud.google.com/sdk/docs/install
 gcloud init
 gcloud auth login
-pulumi new gcp-python
 gcloud auth application-default login
-pulumi config set gcp:project stock-computing-service
-export GOOGLE_PROJECT=stock-computing-service
-pulumi config set gcp:region us-west1
 gcloud components install gke-gcloud-auth-plugin
+export GOOGLE_PROJECT=stock-computing-service
+pulumi new gcp-python
+pulumi config set gcp:project stock-computing-service
+pulumi config set gcp:region us-west1
 gcloud container clusters get-credentials gke-cluster-f0853e1 --zone us-west1-a
+cd infra
+pulumi stack init dev
+## Reference: https://github.com/pulumi/examples/blob/master/gcp-py-gke/README.md

@@ -1,21 +1,26 @@
+from typing import List
+
 from pulumi import Config
 from pulumi_gcp.config import project, zone
 from pulumi_random import RandomPassword
 
-config = Config(None)
+config: Config = Config(None)
 
-PROJECT = project if project else "stock-computing-service"
-ZONE = zone if zone else "us-central1"
-NODE_COUNT = config.get_int("node_count") or 2
-NODE_MACHINE_TYPE = config.get("node_machine_type") or "n1-standard-1"
-MASTER_VERSION = config.get("master_version")
-OUTH_SCOPES = [
+# TODO: Add ENUM Class based on the type of K8 Object
+
+PROJECT: str = project if project else "stock-computing-service"
+ZONE: str = zone if zone else "us-central1"
+NODE_COUNT: int = config.get_int("node_count") or 2
+NODE_MACHINE_TYPE: str = config.get("node_machine_type") or "n1-standard-1"
+MASTER_VERSION: str = config.get("master_version")
+OUTH_SCOPES: List[str] = [
     "https://www.googleapis.com/auth/compute",
     "https://www.googleapis.com/auth/devstorage.read_only",
     "https://www.googleapis.com/auth/logging.write",
     "https://www.googleapis.com/auth/monitoring",
 ]
-CERTIFICATE = """apiVersion: v1
+K8_DEFINATION_PATH: str = "k8-configs"
+CERTIFICATE: str = """apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: {0}

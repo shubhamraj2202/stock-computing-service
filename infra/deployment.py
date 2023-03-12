@@ -1,8 +1,12 @@
+""" Module for taking care of app/service deployments """
+from __future__ import annotations
+
 from enum import Enum
-from typing import List
+from typing import Any, Dict, List
 
 import yaml
-from pulumi import ResourceOptions, export, get_project, get_stack
+from pulumi import ResourceOptions
+from pulumi_kubernetes import Provider
 from pulumi_kubernetes.apps.v1 import Deployment, DeploymentSpecArgs
 from pulumi_kubernetes.core.v1 import (
     ContainerArgs,
@@ -14,6 +18,8 @@ from pulumi_kubernetes.core.v1 import (
 )
 from pulumi_kubernetes.meta.v1 import LabelSelectorArgs, ObjectMetaArgs
 
+from cluster import K8Cluster
+from constants import K8_DEFINATION_PATH
 from helper import list_files
 from models import K8ConfigModel
 
@@ -25,17 +31,20 @@ class K8DefinationEnum(str, Enum):
     cluster_ip = "ClusterIP"
 
 
-def load_yaml(filpath):
+def load_yaml(filpath: str) -> Dict[str, Any]:
+    """Load yaml file"""
     with open(filpath, "r") as f:
         return yaml.safe_load(f)
 
 
-def load_config():
-    config_paths = list_files("k8-configs")
+def load_config() -> List[K8ConfigModel]:
+    """Load K8 Definations config"""
+    config_paths = list_files(K8_DEFINATION_PATH)
     return [K8ConfigModel(**load_yaml(path)) for path in config_paths]
 
 
-def init_service(model, k8s_provider) -> Service:
+def init_service(model: K8ConfigModel, k8s_provider: Provider) -> Service:
+    """Initializes K8 Service"""
     ports: List[ServicePortArgs] = [
         ServicePortArgs(port=port.port, target_port=port.targetPort)
         for port in model.spec.ports
@@ -52,21 +61,8 @@ def init_service(model, k8s_provider) -> Service:
     return service
 
 
-def init_loadbalancer(model, k8s_provider):
-    labels = {}
-    ingress = Service(
-        model.metadata.name,
-        spec=ServiceSpecArgs(
-            type="LoadBalancer",
-            selector=labels,
-            ports=[ServicePortArgs(port=80)],
-        ),
-        opts=ResourceOptions(provider=k8s_provider),
-    )
-    return ingress
-
-
-def init_deploy(model, k8s_provider):
+def init_deploy(model: K8ConfigModel, k8s_provider: Provider) -> Deployment:
+    """Initializes K8 Deployment"""
     containers: List[ContainerArgs] = [
         ContainerArgs(**cont.dict()) for cont in model.spec.template.spec.containers
     ]
@@ -89,21 +85,18 @@ def init_deploy(model, k8s_provider):
     return deployment
 
 
-def provision_application_service(cluster):
-    # Create a canary deployment to test that this cluster works.
+def provision_application_service(cluster: K8Cluster) -> None:
+    """Loads Yaml k8 definationa and create services/deployments accordingly
+    Args:
+        cluster (K8Cluster): Cluster Model
+    """
     k8_config_models: List[K8ConfigModel] = load_config()
-    services = {}
-    deployments = {}
+    services: Dict[str, Service] = {}
+    deployments: Dict[str, Deployment] = {}
     for model in k8_config_models:
         if model.kind == K8DefinationEnum.service.value:
-            services[model.spec.type] = init_service(model, cluster.provider)
+            services[model.metadata.name] = init_service(model, cluster.provider)
         if model.kind == K8DefinationEnum.deployment.value:
-            deployments[model.kind] = init_deploy(model, cluster.provider)
+            deployments[model.metadata.name] = init_deploy(model, cluster.provider)
 
-    # export the kubeconfig so that the client can easily access the cluster.
-    export("kubeconfig", cluster.config)
-    if ingress := services.get(K8DefinationEnum.load_balancer.value):
-        export(
-            "ingress_ip",
-            ingress.status.apply(lambda status: status.load_balancer.ingress[0].ip),
-        )
+    return (deployments, services)

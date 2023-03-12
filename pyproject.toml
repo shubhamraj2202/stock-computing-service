@@ -20,6 +20,9 @@ uvicorn = "^0.20.0"
 psycopg2-binary = "^2.9.5"
 gcloud = "^0.18.3"
 pulumi-gcp = "^6.51.0"
+pulumi = "^3.57.1"
+pulumi-kubernetes = "^3.24.1"
+pulumi-random = "^4.12.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
