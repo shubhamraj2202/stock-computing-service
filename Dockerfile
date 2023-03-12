@@ -1,5 +1,7 @@
+#!/bin/bash
+
 # Base image
-FROM python:3.9-slim-buster
+FROM --platform=linux/amd64 python:3.9-slim-buster
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -28,4 +30,4 @@ COPY . .
 EXPOSE 8000
 
 # Start the application
-CMD ["uvicorn", "stock_computing_service.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python3", "-m", "uvicorn", "stock_computing_service.main:app", "--host", "0.0.0.0", "--port", "8000"]

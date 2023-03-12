@@ -1,0 +1,7 @@
+config:
+  gcp:credentials: /Users/shubhamraj2202/.config/gcloud/application_default_credentials.json
+  gcp:project: stock-computing-service
+  gcp:region: us-central1
+  gcp:zone: us-west1-a
+  stock-computing-service:password:
+    secure: AAABAMbX7Ju7hLAg6+G6ZzCVDnFf0nf7Mc9/cqT9FWOt6u9k5w==

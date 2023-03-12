@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock-computing-app-service
+  labels:
+    name: stock-computing-app-service
+    app: stock-computing-app
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+    targetPort: 8000
+    nodePort: 30004
+  selector:
+    matchLabels:
+      name: stock-computing-app-pod
+      app: stock-computing-app
