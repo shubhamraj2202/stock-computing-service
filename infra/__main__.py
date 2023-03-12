@@ -1,16 +1,38 @@
 """A Google Cloud Python Pulumi program"""
-from pulumi import export
+from __future__ import annotations
+
+from typing import Dict
 
 from cluster import K8Cluster, provision_k8s_cluster
-from deployment import provision_application_service
+from deployment import K8DefinationEnum, provision_application_service
+from pulumi import export
+from pulumi_kubernetes.core.v1 import Service
+
+KUBECONFIG: str = "kubeconfig"
+INGRESS_IP: str = "ingress_ip"
 
 
-def execute():
-    """Execute the program"""
+def export_config(cluster: K8Cluster, services: Dict[str, Service]) -> None:
+    """Export the kubeconfig so that the client can easily access the cluster.
+    Args:
+        cluster (K8Cluster): Cluster
+        services (Dict[str, Service]): Dict containing service name and its k8 object
+    """
 
-    # Create a new cluster
+    export(KUBECONFIG, cluster.config)
+    for service_name, service in services.items():
+        if service_name == services.get(K8DefinationEnum.load_balancer.value):
+            export(
+                INGRESS_IP,
+                service.status.apply(lambda status: status.load_balancer.ingress[0].ip),
+            )
+
+
+def execute() -> None:
+    """Executes Infrastructure as Code"""
     cluster: K8Cluster = provision_k8s_cluster()
-    provision_application_service(cluster)
+    _, services = provision_application_service(cluster)
+    export_config(cluster, services)
 
 
 if __name__ == "__main__":
