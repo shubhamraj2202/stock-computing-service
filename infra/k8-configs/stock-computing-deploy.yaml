@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-computing-app-deploy
+  labels:
+    name: stock-computing-app-deploy
+    app: stock-computing-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: stock-computing-app-pod
+      app: stock-computing-app
+  template:
+    metadata:
+      name: stock-computing-app-pod
+      labels:
+        name: stock-computing-app-pod
+        app: stock-computing-app
+    spec:
+      containers:
+      - name: stock-computing-app
+        image: shubhamraj2202/stock-computing-service-app:latest
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DATABASE_HOST
+            value: 10.12.0.5

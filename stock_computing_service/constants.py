@@ -7,11 +7,13 @@ from enum import Enum
 SYMBOLS = ["IBM", "AAPL"]
 API_KEY = os.environ.get("FINANCIAL_KEY", "demo")
 
+DB_HOST = os.environ.get("DATABASE_HOST", "localhost")
+
 
 class DatabaseEnum(str, Enum):
     NAME = "stock_computing"
-    SERVER = f"postgresql://postgres:postgres@db:5432/stock_computing"
-    HOST = "db"
+    SERVER = f"postgresql://postgres:postgres@{DB_HOST}:5432/stock_computing"
+    HOST = DB_HOST
     USER = "postgres"
     PASSWORD = "postgres"
     DEFAULT = "postgres"
