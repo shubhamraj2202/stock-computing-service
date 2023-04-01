@@ -25,4 +25,4 @@ spec:
         - containerPort: 8000
         env:
           - name: DATABASE_HOST
-            value: 34.82.9.16
+            value: 34.168.47.1

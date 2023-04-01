@@ -37,8 +37,7 @@ For local development, the API key can be accessed via environment variable `FIN
 For production environment, the API key should be stored in a secret management service like Vault, GCP Secret Manager /AWS
 
 
-# Deployment: (Time Setup) #Todo: Script to take initial setup of env
-
+# Deployment: (Time Setup) #TODO: Script to take initial setup of env
 Install Google Cloud CLI https://cloud.google.com/sdk/docs/install
 gcloud init
 gcloud auth login
