@@ -1,12 +1,15 @@
+![build](https://github.com/shubhamraj2202/stock-computing-service/actions/workflows/github-actions.yml/badge.svg?event=push)
+[![codecov](https://codecov.io/gh/shubhamraj2202/stock-computing-service/branch/main/graph/badge.svg?token=X9KIXXBOAV)](https://codecov.io/gh/shubhamraj2202/stock-computing-service)
 # Summary
-1. This project to Extract/Transform/Load Data from ree API provider named [AlphaVantage](https://www.alphavantage.co/documentation/) in to a Database
-2. Provides API service to sync the data, also retrieve from database and get statistic 
+1. This project to Extract/Transform/Load Data from free API provider named [AlphaVantage](https://www.alphavantage.co/documentation/) in to a Database
+2. Provides API service to sync the data, also retrieve from database and get statisttics 
 
 # Tech Stack
 - Python for backend
 - FastAPI for runnning api services
 - Postgres Database
 - Docker to set up image for deployment and local development
+- GCP Kubernatess for provisioning of deployments/service
 
 # Setup project for development:
 `source setup.sh`
@@ -28,7 +31,10 @@
 `docker push shubhamraj2202/stock-computing-service-app:latest`
 
 # Delete from docker
-`docker rmi shubhamraj2202/stock-computing-service-app:latest-v1`
+`docker rmi shubhamraj2202/stock-computing-service-app:latest`
+
+# DockerHub
+https://hub.docker.com/repository/docker/shubhamraj2202/stock-computing-service-app
 
 # Maintaining API key
 For local development, the API key can be accessed via environment variable `FINANCIAL_KEY`
@@ -37,8 +43,7 @@ For local development, the API key can be accessed via environment variable `FIN
 For production environment, the API key should be stored in a secret management service like Vault, GCP Secret Manager /AWS
 
 
-# Deployment: (Time Setup) #Todo: Script to take initial setup of env
-
+# TODO Provision: Script to take initial setup of env
 Install Google Cloud CLI https://cloud.google.com/sdk/docs/install
 gcloud init
 gcloud auth login
