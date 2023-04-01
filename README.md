@@ -27,7 +27,7 @@
 2. `docker-compose up`
 
 # Upload to docker hub
-`docker tag stock-computing-service-app shubhamraj2202/stock-computing-service-app:latest`
+`docker tag stock-computing-service-app shubhamraj2202/stock-computing-service-app:latest`  
 `docker push shubhamraj2202/stock-computing-service-app:latest`
 
 # Delete from docker
