@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: stock-computing-app
-        image: shubhamraj2202/stock-computing-service-app:latest
+        image: shubhamraj2202/stock-computing-service-app
         ports:
         - containerPort: 8000
         env:

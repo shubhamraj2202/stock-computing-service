@@ -20,8 +20,8 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ci-test-requirements.txt .
+RUN pip install --no-cache-dir -r ci-test-requirements.txt
 
 # Copy the source code into the container
 COPY . .
