@@ -1,4 +1,4 @@
-""" Module for taking care of app/service deployments """
+""" Module for taking care of deployments/service provisioning """
 from __future__ import annotations
 
 from enum import Enum
@@ -18,10 +18,10 @@ from pulumi_kubernetes.core.v1 import (
 )
 from pulumi_kubernetes.meta.v1 import LabelSelectorArgs, ObjectMetaArgs
 
-from cluster import K8Cluster
-from constants import K8_DEFINATION_PATH
-from helper import list_files
-from models import K8ConfigModel
+from .cluster import K8Cluster
+from .constants import K8_DEFINATION_PATH
+from .misc import list_files
+from .models import K8ConfigModel
 
 
 class K8DefinationEnum(str, Enum):
