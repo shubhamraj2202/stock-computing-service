@@ -1,9 +1,13 @@
 name: Docker-Build-Push
+
 run-name: ${{ github.actor }} is building/pushing DockerImage from GitHub Actions 🚀
+
 on:
   push:
     branches: [ main ]
+
 jobs:
+
   PushToRegistry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
