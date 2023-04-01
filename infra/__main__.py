@@ -3,10 +3,10 @@ from __future__ import annotations
 
 from typing import Dict
 
-from cluster import K8Cluster, provision_k8s_cluster
-from deployment import K8DefinationEnum, provision_application_service
 from pulumi import export
 from pulumi_kubernetes.core.v1 import Service
+from src.cluster import K8Cluster, provision_k8s_cluster
+from src.deployment_service import K8DefinationEnum, provision_application_service
 
 KUBECONFIG: str = "kubeconfig"
 INGRESS_IP: str = "ingress_ip"

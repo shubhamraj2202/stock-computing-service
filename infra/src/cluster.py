@@ -3,7 +3,12 @@
 from enum import Enum
 from typing import Any
 
-from constants import (
+from pulumi import Output
+from pulumi_gcp.container import Cluster, ClusterNodeConfigArgs
+from pulumi_kubernetes import Provider
+from pydantic import BaseModel
+
+from .constants import (
     CERTIFICATE,
     MASTER_VERSION,
     NODE_COUNT,
@@ -12,10 +17,6 @@ from constants import (
     PROJECT,
     ZONE,
 )
-from pulumi import Output
-from pulumi_gcp.container import Cluster, ClusterNodeConfigArgs
-from pulumi_kubernetes import Provider
-from pydantic import BaseModel
 
 
 class ClusterEnum(str, Enum):
