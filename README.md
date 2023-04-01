@@ -1,4 +1,4 @@
-![build](https://github.com/shubhamraj2202/stock-computing-service/actions/workflows/github-actions.yml/badge.svg?event=push)
+![build](https://github.com/shubhamraj2202/stock-computing-service/actions/workflows/ci-tests.yml/badge.svg?event=push)
 [![codecov](https://codecov.io/gh/shubhamraj2202/stock-computing-service/branch/main/graph/badge.svg?token=X9KIXXBOAV)](https://codecov.io/gh/shubhamraj2202/stock-computing-service)
 # Summary
 1. This project to Extract/Transform/Load Data from free API provider named [AlphaVantage](https://www.alphavantage.co/documentation/) in to a Database
@@ -32,6 +32,12 @@
 
 # Delete from docker
 `docker rmi shubhamraj2202/stock-computing-service-app:latest`
+
+# DockerHub
+https://hub.docker.com/repository/docker/shubhamraj2202/stock-computing-service-app
+
+# PyPi
+https://pypi.org/project/stock-computing-service/
 
 # Maintaining API key
 For local development, the API key can be accessed via environment variable `FINANCIAL_KEY`
