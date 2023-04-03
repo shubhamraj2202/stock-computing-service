@@ -1,5 +1,5 @@
-![build](https://github.com/shubhamraj2202/stock-computing-service/actions/workflows/ci-tests.yml/badge.svg?event=push)
-[![codecov](https://codecov.io/gh/shubhamraj2202/stock-computing-service/branch/main/graph/badge.svg?token=X9KIXXBOAV)](https://codecov.io/gh/shubhamraj2202/stock-computing-service)
+![build](https://github.com/shubhamraj2202/stock-computing-service/actions/workflows/ci-tests.yml/badge.svg)
+[![codecov](https://codecov.io/gh/shubhamraj2202/stock-computing-service/branch/main/graph/badge.svg?token=ciJFM9MV99)](https://codecov.io/gh/shubhamraj2202/stock-computing-service)
 # Summary
 1. This project to Extract/Transform/Load Data from free API provider named [AlphaVantage](https://www.alphavantage.co/documentation/) in to a Database
 2. Provides API service to sync the data, also retrieve from database and get statisttics 
