@@ -4,6 +4,7 @@ from __future__ import annotations
 import os
 from enum import Enum
 
+# TODO: Move symbols to DATABASE
 SYMBOLS = ["IBM", "AAPL"]
 API_KEY = os.environ.get("FINANCIAL_KEY", "demo")
 
