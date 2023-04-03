@@ -16,3 +16,4 @@ class TestExtract:
         assert isinstance(extracted_data, dict)
 
     # Todo: Add more validation
+    # Use Mocking

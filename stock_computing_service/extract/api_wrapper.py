@@ -28,13 +28,15 @@ async def get_core_stocks(
         for symbol in symbols
     }
 
-    tasks = [asyncio.ensure_future(call_get_api(url)) for _, url in sym_url_map.items()]
+    tasks: List[asyncio.Task] = [
+        asyncio.ensure_future(call_get_api(url)) for _, url in sym_url_map.items()
+    ]
     results = await asyncio.gather(*tasks)
     return {symbol: data for symbol, data in zip(symbols, results)}
 
 
 async def call_get_api(url: str) -> Dict[str, Any]:
     """Calls Get API"""
-    response = requests.get(url, verify=False)
+    response: requests.Response = requests.get(url, verify=False)
     response.raise_for_status()
     return response.json()

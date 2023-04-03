@@ -18,6 +18,9 @@ async def financial():
     return {"data": "Welcome!"}
 
 
+# TODO:
+# 1. Move below to route module
+# 2. Write a Model for below API Arguments
 @app.get("/api/financial_data")
 async def get_financial_data(
     start_date: Optional[str] = Query(None, description="start date (YYYY-MM-DD)"),
