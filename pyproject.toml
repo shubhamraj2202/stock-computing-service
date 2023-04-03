@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stock_computing_service"
-version = "1.2.1a2"
+version = "1.2.1a3"
 description = "stock_computing_service"
 authors = ["Shubham Raj <shubhamraj2202@gmail.com>"]
 license = "LICENSE"
